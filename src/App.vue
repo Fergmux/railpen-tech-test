@@ -4,7 +4,7 @@
   <!-- Nav bar -->
   <!-- GetQuote page -->
   <!-- footer -->
-  <p>placeholder</p>
+  <p class="text-red-500">placeholder</p>
 </template>
 
 <style scoped></style>
