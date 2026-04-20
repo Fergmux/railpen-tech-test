@@ -2,21 +2,37 @@
 import {
   type ComponentInstance,
   ref,
-  type Ref,
+  useTemplateRef,
 } from 'vue'
+
+import type { ContactFormValues } from '@/types/form'
 
 import ContactForm from '../components/ContactForm.vue'
 import FloatingCard from '../components/FloatingCard.vue'
 import ProgressTabs from '../components/ProgressTabs.vue'
 import TextButton from '../components/TextButton.vue'
 
-// Use alias imports
-
 const slot1 = 'contact'
 const slot2 = 'confirm'
 const tabs = [slot1, slot2]
 const currentTab = ref('contact')
-const tabsComponent = ref(null) as Ref<ComponentInstance<typeof ProgressTabs> | null>
+const tabsComponent = useTemplateRef<ComponentInstance<typeof ProgressTabs>>('tabsComponent')
+const contactForm = useTemplateRef<ComponentInstance<typeof ContactForm>>('contactForm')
+
+const formValues = ref<ContactFormValues>({})
+
+const submitForm = () => {
+  contactForm.value?.submit()
+}
+
+const onContactSubmit = (values: ContactFormValues) => {
+  formValues.value = values
+  tabsComponent.value?.next()
+}
+
+const previousPage = () => {
+  tabsComponent.value?.previous()
+}
 </script>
 
 <template>
@@ -32,19 +48,19 @@ const tabsComponent = ref(null) as Ref<ComponentInstance<typeof ProgressTabs> | 
           <template #[slot1]>
             <h2 class="text-2xl font-bold">Contact Details</h2>
             <p class="text-sm text-gray-500">Enter your details below</p>
-            <ContactForm />
+            <ContactForm ref="contactForm" :default-values="formValues" @submit="onContactSubmit" />
           </template>
           <template #[slot2]>
             <h2 class="text-2xl font-bold">Confirm Details</h2>
             <p class="text-sm text-gray-500">Confirm your details below</p>
-            <ContactForm readonly />
+            <ContactForm :default-values="formValues" readonly />
             <input type="checkbox" /><span>I confirm my details are correct</span>
           </template>
         </ProgressTabs>
       </FloatingCard>
       <div class="w-full flex justify-between">
-        <TextButton @click="tabsComponent?.previous()" />
-        <TextButton @click="tabsComponent?.next()" />
+        <TextButton @click="previousPage" />
+        <TextButton @click="submitForm" />
       </div>
     </div>
   </div>

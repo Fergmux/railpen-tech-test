@@ -6,6 +6,6 @@ import TextField from './TextField.vue'
 <template>
   <div class="w-full bg-blue-200 h-full flex justify-between">
     <CompanyLogo />
-    <TextField />
+    <TextField name="Name" />
   </div>
 </template>
