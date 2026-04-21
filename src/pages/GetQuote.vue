@@ -1,14 +1,19 @@
 <script setup lang="ts">
-import { type ComponentInstance, computed, ref, useTemplateRef, watch } from 'vue'
+import {
+  type ComponentInstance,
+  computed,
+  ref,
+  useTemplateRef,
+  watch,
+} from 'vue'
 
-import type { ContactFormValues } from '@/types/form'
-
-import ContactForm from '@/components/form/ContactForm.vue'
 import FloatingCard from '@/components/FloatingCard.vue'
-import ProgressSteps from '@/components/form/ProgressSteps.vue'
-import TextButton from '@/components/TextButton.vue'
-import FormHeader from '@/components/FormHeader.vue'
 import CheckboxField from '@/components/form/CheckboxField.vue'
+import ContactForm from '@/components/form/ContactForm.vue'
+import ProgressSteps from '@/components/form/ProgressSteps.vue'
+import FormHeader from '@/components/FormHeader.vue'
+import TextButton from '@/components/TextButton.vue'
+import type { ContactFormValues } from '@/types/form'
 
 type Step = 'contact' | 'confirm'
 
@@ -68,13 +73,17 @@ const onSubmit = async (values: ContactFormValues) => {
     errorMessage.value = 'Please confirm your details are correct'
     return
   }
+
   errorMessage.value = ''
   formValues.value = values
+
   if (currentStep.value === lastStep) {
     alert(`Your quote will be sent to ${formValues.value.email}`)
-    return
+    formValues.value = {}
+    stepsComponent.value?.previous()
+  } else {
+    stepsComponent.value?.next()
   }
-  stepsComponent.value?.next()
 }
 
 const previousPage = () => {
