@@ -28,6 +28,11 @@ type StepConfig = {
   secondaryButtonText?: string
 }
 
+type ProgressStepsRef = {
+  next: () => void
+  previous: () => void
+}
+
 const steps: Step[] = ['contact', 'confirm']
 const lastStep: Step = 'confirm'
 
@@ -51,7 +56,7 @@ const config: Record<Step, StepConfig> = {
 }
 
 const currentStep = ref<Step>('contact')
-const stepsComponent = useTemplateRef<{ next: () => void; previous: () => void }>('stepsComponent')
+const stepsComponent = useTemplateRef<ProgressStepsRef>('stepsComponent')
 const contactForm = useTemplateRef<ComponentInstance<typeof ContactForm>>('contactForm')
 
 const checkboxChecked = ref(false)
