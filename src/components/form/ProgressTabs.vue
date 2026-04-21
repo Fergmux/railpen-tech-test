@@ -1,9 +1,5 @@
 <script setup lang="ts">
-import {
-  computed,
-  ref,
-  watch,
-} from 'vue'
+import { computed, ref, watch } from 'vue'
 
 const props = defineProps<{
   tabs: string[]
@@ -40,14 +36,14 @@ defineExpose({
 </script>
 <template>
   <div class="w-full">
-    <div class="w-full flex gap-4">
+    <div class="w-full gap-[25%] flex py-4 justify-center border-b-2 border-gray-200">
       <div
         v-for="(tab, index) in tabs"
         :key="tab"
-        class="rounded-full bg-orange-100 h-6 w-6 mx-auto flex justify-center items-center cursor-pointer transition-colors"
-        :class="{ 'bg-orange-400': currentTabIndex >= index }"
+        class="rounded-full bg-gray-100 h-8 w-8 flex justify-center items-center transition-colors text-navy/60"
+        :class="{ 'bg-orange text-white': currentTabIndex >= index }"
       >
-        {{ index }}
+        {{ index + 1 }}
       </div>
     </div>
     <template v-for="(tab, index) in tabs" :key="tab">

@@ -1,5 +1,6 @@
 <template>
-  <h1 class="text-2xl font-bold text-orange-400">
-    🌍 <span class="text-blue-400">Company</span> Logo
-  </h1>
+  <h2 class="text-header2 text-navy font-superblack flex gap-2 items-center">
+    <span class="material-symbols-outlined">public</span>
+    <p>Your Site <span class="text-orange">Design</span></p>
+  </h2>
 </template>

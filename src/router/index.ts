@@ -1,7 +1,4 @@
-import {
-  createRouter,
-  createWebHistory,
-} from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
 
 import GetQuote from '@/pages/GetQuote.vue'
 
