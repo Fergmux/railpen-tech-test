@@ -6,7 +6,9 @@ import PageHeader from './components/PageHeader.vue'
 <template>
   <div class="w-screen h-screen flex flex-col">
     <PageHeader class="basis-20" />
-    <router-view />
+    <main class="flex-1">
+      <router-view />
+    </main>
     <PageFooter class="basis-20" />
   </div>
 </template>

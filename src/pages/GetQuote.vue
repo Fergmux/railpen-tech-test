@@ -5,7 +5,7 @@ import type { ContactFormValues } from '@/types/form'
 
 import ContactForm from '../components/form/ContactForm.vue'
 import FloatingCard from '../components/FloatingCard.vue'
-import ProgressTabs from '../components/form/ProgressTabs.vue'
+import ProgressSteps from '../components/form/ProgressSteps.vue'
 import TextButton from '../components/TextButton.vue'
 import FormHeader from '../components/FormHeader.vue'
 import CheckboxField from '@/components/form/CheckboxField.vue'
@@ -29,11 +29,11 @@ const config = {
   },
 }
 
-const tab1 = 'contact'
-const tab2 = 'confirm'
-const tabs = [tab1, tab2]
-const currentTab = ref(tab1)
-const tabsComponent = useTemplateRef<ComponentInstance<typeof ProgressTabs>>('tabsComponent')
+const step1 = 'contact'
+const step2 = 'confirm'
+const steps = [step1, step2]
+const currentStep = ref(step1)
+const stepsComponent = useTemplateRef<ComponentInstance<typeof ProgressSteps>>('stepsComponent')
 const contactForm = useTemplateRef<ComponentInstance<typeof ContactForm>>('contactForm')
 
 const checkboxChecked = ref(false)
@@ -42,7 +42,7 @@ watch(checkboxChecked, (newVal) => {
   if (newVal) errorMessage.value = ''
 })
 
-const currentConfig = computed(() => config[currentTab.value])
+const currentConfig = computed(() => config[currentStep.value])
 
 const formValues = ref<ContactFormValues>({})
 
@@ -57,15 +57,15 @@ const onSubmit = async (values: ContactFormValues) => {
   }
   errorMessage.value = ''
   formValues.value = values
-  if (currentTab.value === tab2) {
+  if (currentStep.value === step2) {
     alert(`Your quote will be sent to ${formValues.value.email}`)
     return
   }
-  tabsComponent.value?.next()
+  stepsComponent.value?.next()
 }
 
 const previousPage = () => {
-  tabsComponent.value?.previous()
+  stepsComponent.value?.previous()
 }
 </script>
 
@@ -74,16 +74,16 @@ const previousPage = () => {
     <div
       class="flex flex-col items-center justify-center gap-4 max-w-lg mx-auto h-full px-4 md:px-0"
     >
-      <h2 class="text-header2 font-black">{{ currentConfig.title }}</h2>
+      <h1 class="text-header2 font-black">{{ currentConfig.title }}</h1>
       <p class="opacity-70 text-center">{{ currentConfig.subtitle }}</p>
 
       <FloatingCard class="mt-4 px-12 pb-16 w-full md:w-[calc(100%+120px)]">
-        <ProgressTabs
-          ref="tabsComponent"
-          :tabs="tabs"
-          @tab-updated="currentTab = $event ? $event : 'contact'"
+        <ProgressSteps
+          ref="stepsComponent"
+          :steps="steps"
+          @step-updated="currentStep = $event ? $event : 'contact'"
         >
-          <template #[currentTab]>
+          <template #[currentStep]>
             <FormHeader :title="currentConfig.formTitle" :subtitle="currentConfig.formSubtitle" />
             <ContactForm
               class="mt-8"
@@ -99,7 +99,7 @@ const previousPage = () => {
               :error-message="errorMessage"
             />
           </template>
-        </ProgressTabs>
+        </ProgressSteps>
       </FloatingCard>
 
       <div

@@ -21,7 +21,7 @@ const form = useTemplateRef<FormContext<ContactFormValues>>('form')
 const submit = async () => {
   const result = await form.value?.validate()
   // Emit a shallow clone to avoid component unmount resetting the object
-  if (result?.valid) emit('submit', { ...(form.value?.values ?? {}) })
+  if (result?.valid) emit('submit', { ...form.value?.values })
 }
 
 defineExpose({
@@ -32,22 +32,39 @@ defineExpose({
 <template>
   <Form ref="form" :initial-values="defaultValues">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-8">
-      <TextField name="name" label="Name" rules="required" :readonly placeholder="John Carter" />
+      <TextField
+        name="name"
+        label="Name"
+        rules="required"
+        autocomplete="name"
+        :readonly
+        placeholder="John Carter"
+      />
       <TextField
         name="email"
         label="Email"
+        type="email"
         rules="email|required"
+        autocomplete="email"
         :readonly
         placeholder="Email address"
       />
       <TextField
         name="phone"
         label="Phone Number"
+        type="tel"
         rules="integer|digits:11"
+        autocomplete="tel"
         :readonly
         placeholder="07712345678"
       />
-      <TextField name="company" label="Company" :readonly placeholder="Company name" />
+      <TextField
+        name="company"
+        label="Company"
+        autocomplete="organization"
+        :readonly
+        placeholder="Company name"
+      />
     </div>
   </Form>
 </template>

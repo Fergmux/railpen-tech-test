@@ -1,16 +1,19 @@
 <script setup lang="ts">
 import { ErrorMessage, Field } from 'vee-validate'
-import { computed } from 'vue'
+import { computed, useId } from 'vue'
 import TextButton from '../TextButton.vue'
 
 const props = defineProps<{
   name: string
   label?: string
+  ariaLabel?: string
   rules?: string
   readonly?: boolean
   placeholder?: string
   rounded?: boolean
   buttonText?: string
+  type?: 'text' | 'email' | 'tel' | 'url' | 'password'
+  autocomplete?: string
 }>()
 
 const emit = defineEmits<{
@@ -18,18 +21,23 @@ const emit = defineEmits<{
 }>()
 
 const required = computed(() => props.rules?.includes('required'))
+const inputId = useId()
+const errorId = `${inputId}-error`
 </script>
 
 <template>
-  <label class="relative">
-    <p v-if="label" class="font-medium mb-3">
-      {{ label }}<span v-if="required" class="text-red-500"> *</span>
-    </p>
+  <div class="relative">
+    <label v-if="label" :for="inputId" class="font-medium mb-3 block">
+      {{ label }}<span v-if="required" class="text-red-500" aria-hidden="true"> *</span>
+      <span v-if="required" class="sr-only"> (required)</span>
+    </label>
     <div class="relative">
       <Field v-slot="{ field, errorMessage }" :name="name" :rules="rules">
         <input
           v-bind="field"
-          type="text"
+          :id="inputId"
+          :type="type ?? 'text'"
+          :autocomplete="autocomplete"
           class="w-full border shadow-md p-4 border-gray-200 text-navy/60 focus:outline-gray-300"
           :class="{
             'border-none! shadow-none! p-0!': readonly,
@@ -39,7 +47,9 @@ const required = computed(() => props.rules?.includes('required'))
           }"
           :disabled="readonly"
           :placeholder="readonly ? '-' : placeholder"
-          :aria-label="label ? undefined : name"
+          :aria-label="label ? undefined : ariaLabel"
+          :aria-invalid="errorMessage ? 'true' : undefined"
+          :aria-describedby="errorMessage ? errorId : undefined"
         />
       </Field>
       <TextButton
@@ -51,8 +61,10 @@ const required = computed(() => props.rules?.includes('required'))
       />
     </div>
     <ErrorMessage
+      :id="errorId"
       class="text-sm text-red-500 absolute -bottom-1 translate-y-full leading-tight"
       :name="name"
+      role="alert"
     />
-  </label>
+  </div>
 </template>

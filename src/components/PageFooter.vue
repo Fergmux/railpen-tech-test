@@ -13,7 +13,7 @@ const subscribe = async () => {
 </script>
 
 <template>
-  <div
+  <footer
     class="w-full h-full flex flex-col-reverse md:flex-row gap-10 justify-between items-center py-4 px-6 md:py-10 md:px-16"
   >
     <div class="shrink-0 self-start">
@@ -25,9 +25,12 @@ const subscribe = async () => {
       @buttonClick="subscribe"
       class="md:m-0 w-md max-w-full"
       name="email"
+      type="email"
+      autocomplete="email"
       rules="email"
+      aria-label="Email address for newsletter subscription"
       placeholder="Enter your email"
       rounded
     />
-  </div>
+  </footer>
 </template>
