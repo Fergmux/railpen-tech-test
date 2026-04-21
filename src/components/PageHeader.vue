@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import CompanyLogo from './CompanyLogo.vue'
-import TextButton from './TextButton.vue'
+import CompanyLogo from '@/components/CompanyLogo.vue'
+import TextButton from '@/components/TextButton.vue'
 </script>
 
 <template>

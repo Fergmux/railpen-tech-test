@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Form } from 'vee-validate'
 
-import TextField from './TextField.vue'
+import TextField from '@/components/form/TextField.vue'
 
 type SubscribeValues = {
   email?: string

@@ -3,11 +3,11 @@ import { type ComponentInstance, computed, ref, useTemplateRef, watch } from 'vu
 
 import type { ContactFormValues } from '@/types/form'
 
-import ContactForm from '../components/form/ContactForm.vue'
-import FloatingCard from '../components/FloatingCard.vue'
-import ProgressSteps from '../components/form/ProgressSteps.vue'
-import TextButton from '../components/TextButton.vue'
-import FormHeader from '../components/FormHeader.vue'
+import ContactForm from '@/components/form/ContactForm.vue'
+import FloatingCard from '@/components/FloatingCard.vue'
+import ProgressSteps from '@/components/form/ProgressSteps.vue'
+import TextButton from '@/components/TextButton.vue'
+import FormHeader from '@/components/FormHeader.vue'
 import CheckboxField from '@/components/form/CheckboxField.vue'
 
 type Step = 'contact' | 'confirm'

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ErrorMessage, Field } from 'vee-validate'
 import { computed, useId } from 'vue'
-import TextButton from '../TextButton.vue'
+import TextButton from '@/components/TextButton.vue'
 
 const props = defineProps<{
   name: string

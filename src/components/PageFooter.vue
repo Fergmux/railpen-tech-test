@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import CompanyLogo from './CompanyLogo.vue'
-import SubscribeForm from './form/SubscribeForm.vue'
+import CompanyLogo from '@/components/CompanyLogo.vue'
+import SubscribeForm from '@/components/form/SubscribeForm.vue'
 </script>
 
 <template>

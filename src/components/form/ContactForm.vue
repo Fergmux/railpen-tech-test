@@ -5,7 +5,7 @@ import { Form, type FormContext } from 'vee-validate'
 
 import type { ContactFormValues } from '@/types/form'
 
-import TextField from './TextField.vue'
+import TextField from '@/components/form/TextField.vue'
 
 const emit = defineEmits<{
   submit: [values: ContactFormValues]

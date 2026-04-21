@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useId } from 'vue'
+
 import CheckIcon from '@/assets/check.svg'
 
 defineProps<{
@@ -19,7 +20,7 @@ const errorId = `${inputId}-error`
           :id="inputId"
           v-model="model"
           type="checkbox"
-          class="appearance-none cursor-pointer h-4 w-4 rounded border-gray-300 border-2 hover:bg-orange/50 checked:bg-orange checked:border-orange focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange"
+          class="appearance-none cursor-pointer h-4 w-4 rounded border-gray-300 border-2 hover:bg-orange/50 checked:bg-orange hover:checked:bg-orange checked:border-orange focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange"
           :aria-invalid="errorMessage ? 'true' : undefined"
           :aria-describedby="errorMessage ? errorId : undefined"
         />

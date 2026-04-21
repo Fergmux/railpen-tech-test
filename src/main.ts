@@ -4,8 +4,8 @@ import { defineRule } from 'vee-validate'
 
 import { digits, email, integer, required } from '@vee-validate/rules'
 
-import App from './App.vue'
-import router from './router'
+import App from '@/App.vue'
+import router from '@/router'
 
 type RuleContext = {
   field: string
