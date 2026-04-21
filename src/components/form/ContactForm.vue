@@ -16,11 +16,13 @@ defineProps<{
   defaultValues: ContactFormValues
 }>()
 
+// NOTE: Should probably live higher up the hierarchy
 const form = useTemplateRef<FormContext<ContactFormValues>>('form')
 
 const submit = async () => {
   const result = await form.value?.validate()
   // Emit a shallow clone to avoid component unmount resetting the object
+  // NOTE: Unneccesary if shared form context lives higher up
   if (result?.valid) emit('submit', { ...form.value?.values })
 }
 
@@ -49,6 +51,7 @@ defineExpose({
         :readonly
         placeholder="Email address"
       />
+      <!-- Should also allow +XX prefix -->
       <TextField
         name="phone"
         label="Phone Number"

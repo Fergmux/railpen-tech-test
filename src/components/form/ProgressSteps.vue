@@ -9,7 +9,7 @@ const emit = defineEmits<{
   (e: 'step-updated', step: string | undefined): void
 }>()
 
-// Could v-model this
+// NOTE: Might be easier to just v-model this
 const currentStepIndex = ref(0)
 const currentStep = computed(() => props.steps[currentStepIndex.value])
 watch(currentStep, (newStep) => {

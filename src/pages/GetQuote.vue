@@ -70,53 +70,48 @@ const previousPage = () => {
 </script>
 
 <template>
-  <div class="size-full">
-    <div
-      class="flex flex-col items-center justify-center gap-4 max-w-lg mx-auto h-full px-4 md:px-0"
-    >
-      <h1 class="text-header2 font-black">{{ currentConfig.title }}</h1>
-      <p class="opacity-70 text-center">{{ currentConfig.subtitle }}</p>
+  <div class="flex flex-col items-center justify-center gap-4 max-w-lg mx-auto h-full px-4 md:px-0">
+    <h1 class="text-header2 font-black">{{ currentConfig.title }}</h1>
+    <p class="opacity-70 text-center">{{ currentConfig.subtitle }}</p>
 
-      <FloatingCard class="mt-4 px-12 pb-16 w-full md:w-[calc(100%+120px)]">
-        <ProgressSteps
-          ref="stepsComponent"
-          :steps="steps"
-          @step-updated="currentStep = $event ? $event : 'contact'"
-        >
-          <template #[currentStep]>
-            <FormHeader :title="currentConfig.formTitle" :subtitle="currentConfig.formSubtitle" />
-            <ContactForm
-              class="mt-8"
-              ref="contactForm"
-              :readonly="currentConfig.readonly"
-              :default-values="formValues"
-              @submit="onSubmit"
-            />
-            <CheckboxField
-              v-if="currentConfig.checkboxLabel"
-              v-model="checkboxChecked"
-              :label="currentConfig.checkboxLabel"
-              :error-message="errorMessage"
-            />
-          </template>
-        </ProgressSteps>
-      </FloatingCard>
-
-      <div
-        class="flex mt-4 justify-end w-full gap-y-4 flex-wrap md:w-[calc(100%+120px)]"
-        :class="{ 'justify-between!': currentConfig.secondaryButtonText }"
+    <FloatingCard class="mt-4 px-12 pb-16 w-full md:w-[calc(100%+120px)]">
+      <ProgressSteps
+        ref="stepsComponent"
+        :steps="steps"
+        @step-updated="currentStep = $event ? $event : 'contact'"
       >
-        <TextButton
-          class="w-full md:w-auto"
-          v-show="currentConfig.secondaryButtonText"
-          :text="currentConfig.secondaryButtonText"
-          secondary
-          @click="previousPage"
-        />
-        <TextButton class="w-full md:w-auto" :text="currentConfig.buttonText" @click="submitForm" />
-      </div>
+        <template #[currentStep]>
+          <FormHeader :title="currentConfig.formTitle" :subtitle="currentConfig.formSubtitle" />
+          <ContactForm
+            class="mt-8"
+            ref="contactForm"
+            :readonly="currentConfig.readonly"
+            :default-values="formValues"
+            @submit="onSubmit"
+          />
+          <!-- NOTE: This should be part of the form really -->
+          <CheckboxField
+            v-if="currentConfig.checkboxLabel"
+            v-model="checkboxChecked"
+            :label="currentConfig.checkboxLabel"
+            :error-message="errorMessage"
+          />
+        </template>
+      </ProgressSteps>
+    </FloatingCard>
+
+    <div
+      class="flex mt-4 justify-end w-full gap-y-4 flex-wrap md:w-[calc(100%+120px)]"
+      :class="{ 'justify-between!': currentConfig.secondaryButtonText }"
+    >
+      <TextButton
+        class="w-full md:w-auto"
+        v-show="currentConfig.secondaryButtonText"
+        :text="currentConfig.secondaryButtonText"
+        secondary
+        @click="previousPage"
+      />
+      <TextButton class="w-full md:w-auto" :text="currentConfig.buttonText" @click="submitForm" />
     </div>
   </div>
 </template>
-
-<style scoped></style>
