@@ -1,48 +1,90 @@
 # railpen-tech-test
 
-This template should help get you started developing with Vue 3 in Vite.
+Frontend technical test project built with Vue 3, TypeScript, and Vite.
+It implements a simple quote flow with a contact details step and a confirmation step.
 
-## Recommended IDE Setup
+## Project structure
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+- `src/pages/GetQuote.vue` - main quote flow page
+- `src/components/` - reusable UI and form components
+- `src/router/index.ts` - app routes and default redirect to `/get-quote`
+- `src/types/` - shared TypeScript types for form data
 
-## Recommended Browser Setup
+## Prerequisites
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+- Node.js `^20.19.0` or `>=22.12.0`
+- One package manager: `pnpm` or `npm`
 
-## Type Support for `.vue` Imports in TS
+## Install
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
+Using `pnpm`:
 
 ```sh
 pnpm install
 ```
 
-### Compile and Hot-Reload for Development
+Using `npm`:
+
+```sh
+npm install
+```
+
+## Run locally
+
+Using `pnpm`:
 
 ```sh
 pnpm dev
 ```
 
-### Type-Check, Compile and Minify for Production
+Using `npm`:
+
+```sh
+npm run dev
+```
+
+The dev server will print a local URL (typically `http://localhost:5173`).
+
+## Build for production
+
+Using `pnpm`:
 
 ```sh
 pnpm build
 ```
 
-### Lint with [ESLint](https://eslint.org/)
+Using `npm`:
+
+```sh
+npm run build
+```
+
+## Preview the production build
+
+Using `pnpm`:
+
+```sh
+pnpm preview
+```
+
+Using `npm`:
+
+```sh
+npm run preview
+```
+
+## Lint and format
+
+Using `pnpm`:
 
 ```sh
 pnpm lint
+pnpm format
+```
+
+Using `npm`:
+
+```sh
+npm run lint
+npm run format
 ```
