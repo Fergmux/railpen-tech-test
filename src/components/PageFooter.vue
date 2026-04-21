@@ -1,15 +1,6 @@
 <script setup lang="ts">
 import CompanyLogo from './CompanyLogo.vue'
-import TextField from './form/TextField.vue'
-import { useForm } from 'vee-validate'
-
-const { values, validate } = useForm()
-
-const subscribe = async () => {
-  const result = await validate()
-  if (!result?.valid || !values.email) return
-  alert(`${values.email} has been subscribed`)
-}
+import SubscribeForm from './form/SubscribeForm.vue'
 </script>
 
 <template>
@@ -20,17 +11,6 @@ const subscribe = async () => {
       <CompanyLogo />
       <p class="text-sm text-navy/60">Copyright © 2026 All Rights Reserved</p>
     </div>
-    <TextField
-      buttonText="Subscribe"
-      @buttonClick="subscribe"
-      class="md:m-0 w-md max-w-full"
-      name="email"
-      type="email"
-      autocomplete="email"
-      rules="email"
-      aria-label="Email address for newsletter subscription"
-      placeholder="Enter your email"
-      rounded
-    />
+    <SubscribeForm class="md:m-0 w-md max-w-full" />
   </footer>
 </template>

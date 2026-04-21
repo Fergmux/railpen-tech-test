@@ -1,19 +1,19 @@
-<script setup lang="ts">
+<script setup lang="ts" generic="T extends string">
 import { computed, ref, watch } from 'vue'
 
 const props = defineProps<{
-  steps: string[]
+  steps: T[]
 }>()
 
 const emit = defineEmits<{
-  (e: 'step-updated', step: string | undefined): void
+  (e: 'step-updated', step: T): void
 }>()
 
 // NOTE: Might be easier to just v-model this
 const currentStepIndex = ref(0)
 const currentStep = computed(() => props.steps[currentStepIndex.value])
 watch(currentStep, (newStep) => {
-  emit('step-updated', newStep)
+  if (newStep !== undefined) emit('step-updated', newStep)
 })
 
 const next = () => {
