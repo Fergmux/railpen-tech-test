@@ -10,7 +10,23 @@ import TextButton from '../components/TextButton.vue'
 import FormHeader from '../components/FormHeader.vue'
 import CheckboxField from '@/components/form/CheckboxField.vue'
 
-const config = {
+type Step = 'contact' | 'confirm'
+
+type StepConfig = {
+  title: string
+  subtitle: string
+  formTitle: string
+  formSubtitle?: string
+  buttonText: string
+  readonly?: boolean
+  checkboxLabel?: string
+  secondaryButtonText?: string
+}
+
+const steps: Step[] = ['contact', 'confirm']
+const lastStep: Step = 'confirm'
+
+const config: Record<Step, StepConfig> = {
   contact: {
     title: 'Get a project quote',
     subtitle: 'Enter your details below',
@@ -29,11 +45,8 @@ const config = {
   },
 }
 
-const step1 = 'contact'
-const step2 = 'confirm'
-const steps = [step1, step2]
-const currentStep = ref(step1)
-const stepsComponent = useTemplateRef<ComponentInstance<typeof ProgressSteps>>('stepsComponent')
+const currentStep = ref<Step>('contact')
+const stepsComponent = useTemplateRef<{ next: () => void; previous: () => void }>('stepsComponent')
 const contactForm = useTemplateRef<ComponentInstance<typeof ContactForm>>('contactForm')
 
 const checkboxChecked = ref(false)
@@ -57,7 +70,7 @@ const onSubmit = async (values: ContactFormValues) => {
   }
   errorMessage.value = ''
   formValues.value = values
-  if (currentStep.value === step2) {
+  if (currentStep.value === lastStep) {
     alert(`Your quote will be sent to ${formValues.value.email}`)
     return
   }
@@ -75,11 +88,7 @@ const previousPage = () => {
     <p class="opacity-70 text-center">{{ currentConfig.subtitle }}</p>
 
     <FloatingCard class="mt-4 px-12 pb-16 w-full md:w-[calc(100%+120px)]">
-      <ProgressSteps
-        ref="stepsComponent"
-        :steps="steps"
-        @step-updated="currentStep = $event ? $event : 'contact'"
-      >
+      <ProgressSteps ref="stepsComponent" :steps="steps" @step-updated="currentStep = $event">
         <template #[currentStep]>
           <FormHeader :title="currentConfig.formTitle" :subtitle="currentConfig.formSubtitle" />
           <ContactForm
@@ -105,8 +114,8 @@ const previousPage = () => {
       :class="{ 'justify-between!': currentConfig.secondaryButtonText }"
     >
       <TextButton
+        v-if="currentConfig.secondaryButtonText"
         class="w-full md:w-auto"
-        v-show="currentConfig.secondaryButtonText"
         :text="currentConfig.secondaryButtonText"
         secondary
         @click="previousPage"
