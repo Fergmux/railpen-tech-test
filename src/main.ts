@@ -11,11 +11,13 @@ type RuleContext = {
   field: string
 }
 
+const capitalise = (value: string) => value.charAt(0).toUpperCase() + value.slice(1)
+
 // NOTE: Should move these to dedicated file
 defineRule(
   'required',
   (value: unknown, _args: unknown[], ctx: RuleContext) =>
-    required(value) || `${ctx.field} is required.`,
+    required(value) || `${capitalise(ctx.field)} is required.`,
 )
 
 defineRule('email', (value: unknown) => email(value) || 'Please enter a valid email address.')
@@ -23,13 +25,13 @@ defineRule('email', (value: unknown) => email(value) || 'Please enter a valid em
 defineRule(
   'integer',
   (value: unknown, _args: unknown[], ctx: RuleContext) =>
-    integer(value) || `${ctx.field} must contain only numbers.`,
+    integer(value) || `${capitalise(ctx.field)} must contain only numbers.`,
 )
 
 defineRule(
   'digits',
   (value: unknown, args: [string | number] | { length: string | number }, ctx: RuleContext) =>
-    digits(value, args) || `${ctx.field} must be the correct length.`,
+    digits(value, args) || `${capitalise(ctx.field)} must be the correct length.`,
 )
 
 const app = createApp(App)
